@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Activity, Camera, BarChart3, Calendar, Target, Flame, Clock, ChevronRight, TrendingUp, Users } from "lucide-react";
+import { Activity, Camera, BarChart3, Calendar, Target, Flame, Clock, ChevronRight, TrendingUp, Users, AlertTriangle, CheckCircle, Upload } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -24,6 +24,21 @@ const Index = () => {
     steps: 6200,
     waterIntake: 4.2
   });
+
+  const workoutInsights = [
+    {
+      exercise: "Bench Press",
+      lastSession: "3 sets x 8 reps @ 75kg",
+      insight: "You did 2 fewer reps than last week. Try starting with 70kg to maintain form.",
+      type: "warning"
+    },
+    {
+      exercise: "Squats", 
+      lastSession: "4 sets x 10 reps @ 100kg",
+      insight: "Great improvement! You increased weight by 5kg and maintained reps.",
+      type: "success"
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
@@ -72,72 +87,83 @@ const Index = () => {
         {/* Compact Quick Actions with Glass Morphism */}
         <div className="grid grid-cols-4 gap-2 md:gap-4 mb-6">
           <Link to="/exercises">
-            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-16">
               <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
-                <Activity className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <Activity className="w-4 h-4 text-white mb-1" />
                 <p className="text-white font-medium text-xs">Workout</p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/nutrition">
-            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-16">
               <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
-                <Camera className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <Camera className="w-4 h-4 text-white mb-1" />
                 <p className="text-white font-medium text-xs">Scan Food</p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/analytics">
-            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-16">
               <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
-                <BarChart3 className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <BarChart3 className="w-4 h-4 text-white mb-1" />
                 <p className="text-white font-medium text-xs">Progress</p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/calendar">
-            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-16">
               <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
-                <Calendar className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <Calendar className="w-4 h-4 text-white mb-1" />
                 <p className="text-white font-medium text-xs">Calendar</p>
               </CardContent>
             </Card>
           </Link>
         </div>
 
-        {/* AI Recommendations - Improved Contrast */}
-        <Card className="bg-slate-800/40 backdrop-blur-lg border-slate-600/30 mb-6">
+        {/* AI Workout Insights */}
+        <Card className="bg-slate-800/90 backdrop-blur-lg border-slate-300/30 mb-6">
           <CardHeader className="pb-3">
             <CardTitle className="text-white flex items-center justify-between">
               <div className="flex items-center">
                 <Target className="w-5 h-5 mr-2" />
-                AI Recommendations
+                AI Workout Insights
               </div>
               <ChevronRight className="w-4 h-4 text-slate-300" />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <div className="bg-slate-700/50 rounded-lg p-3 border border-slate-600/30">
-                <h4 className="text-white font-semibold mb-1 text-sm">🎯 Today's Focus</h4>
-                <p className="text-slate-200 text-xs">
-                  Focus on upper body strength today. Your bench press improved 12% this month!
+              {workoutInsights.map((insight, idx) => (
+                <div key={idx} className="bg-slate-700/80 rounded-lg p-3 border border-slate-500/50">
+                  <div className="flex items-start justify-between mb-2">
+                    <h4 className="text-white font-semibold text-sm flex items-center">
+                      {insight.type === 'warning' ? (
+                        <AlertTriangle className="w-4 h-4 mr-2 text-yellow-400" />
+                      ) : (
+                        <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
+                      )}
+                      {insight.exercise}
+                    </h4>
+                  </div>
+                  <p className="text-slate-300 text-xs mb-1">{insight.lastSession}</p>
+                  <p className="text-white text-xs">{insight.insight}</p>
+                </div>
+              ))}
+              
+              <div className="bg-slate-700/80 rounded-lg p-3 border border-slate-500/50">
+                <h4 className="text-white font-semibold mb-2 text-sm flex items-center">
+                  <Upload className="w-4 h-4 mr-2 text-blue-400" />
+                  Video Form Analysis
+                </h4>
+                <p className="text-white text-xs mb-2">
+                  Upload workout videos for AI-powered form correction and technique tips
                 </p>
-              </div>
-              <div className="bg-slate-700/50 rounded-lg p-3 border border-slate-600/30">
-                <h4 className="text-white font-semibold mb-1 text-sm">📊 Performance Insight</h4>
-                <p className="text-slate-200 text-xs">
-                  You're performing 18% above average for your age group (25-30). Excellent work!
-                </p>
-              </div>
-              <div className="bg-slate-700/50 rounded-lg p-3 border border-slate-600/30">
-                <h4 className="text-white font-semibold mb-1 text-sm">🥗 Nutrition Tip</h4>
-                <p className="text-slate-200 text-xs">
-                  Add more complex carbs pre-workout for better performance.
-                </p>
+                <Button size="sm" className="bg-blue-500 hover:bg-blue-600 text-white">
+                  Upload Video
+                </Button>
               </div>
             </div>
           </CardContent>
@@ -231,7 +257,7 @@ const Index = () => {
         </div>
 
         {/* Average Comparison Section */}
-        <Card className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-lg border-blue-300/30 mb-6">
+        <Card className="bg-gradient-to-r from-blue-600/30 to-purple-600/30 backdrop-blur-lg border-blue-300/50 mb-6">
           <CardHeader className="pb-3">
             <CardTitle className="text-white text-sm flex items-center">
               <Users className="w-4 h-4 mr-2" />
@@ -240,7 +266,7 @@ const Index = () => {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-800/60 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-white text-xs font-medium">Calories</span>
                   <TrendingUp className="w-3 h-3 text-green-400" />
@@ -253,7 +279,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-800/60 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-white text-xs font-medium">Workouts</span>
                   <TrendingUp className="w-3 h-3 text-green-400" />
@@ -266,7 +292,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-800/60 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-white text-xs font-medium">Steps</span>
                   <TrendingUp className="w-3 h-3 text-green-400" />
@@ -279,7 +305,7 @@ const Index = () => {
                 </div>
               </div>
 
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-800/60 rounded-lg p-3">
                 <div className="flex items-center justify-between mb-1">
                   <span className="text-white text-xs font-medium">Water</span>
                   <TrendingUp className="w-3 h-3 text-green-400" />

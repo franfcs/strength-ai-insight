@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, Plus, Trash2, Timer, Weight, RotateCcw, Target } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Timer, Weight, RotateCcw, Target, Upload, Camera, CheckCircle, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 const ExerciseTracker = () => {
   const { toast } = useToast();
   const [selectedWorkout, setSelectedWorkout] = useState<string | null>(null);
+  const [videoAnalysis, setVideoAnalysis] = useState<any>(null);
   const [exercises, setExercises] = useState([
     { id: 1, name: "Bench Press", sets: [{ weight: 80, reps: 8 }, { weight: 85, reps: 6 }], category: "Chest" },
     { id: 2, name: "Squats", sets: [{ weight: 100, reps: 10 }, { weight: 105, reps: 8 }], category: "Legs" }
@@ -28,6 +29,29 @@ const ExerciseTracker = () => {
     { exercise: "Bulgarian Split Squats", reason: "Unilateral leg strength", difficulty: "Advanced" },
     { exercise: "Face Pulls", reason: "Improve shoulder health", difficulty: "Beginner" }
   ];
+
+  const simulateVideoAnalysis = () => {
+    // Simulate AI video analysis
+    setTimeout(() => {
+      setVideoAnalysis({
+        exercise: "Bench Press",
+        formScore: 85,
+        issues: [
+          { type: "warning", text: "Lower the bar slower to your chest for better muscle activation" },
+          { type: "success", text: "Great arch and foot placement" }
+        ],
+        recommendations: [
+          "Focus on 3-second negative movement",
+          "Keep your shoulders pinned back",
+          "Maintain consistent bar path"
+        ]
+      });
+      toast({
+        title: "Video Analysis Complete! 🎯",
+        description: "AI has analyzed your form and provided feedback.",
+      });
+    }, 2000);
+  };
 
   const addSet = (exerciseId: number) => {
     setExercises(exercises.map(ex => 
@@ -111,8 +135,61 @@ const ExerciseTracker = () => {
               </div>
             </div>
 
+            {/* AI Video Form Analysis */}
+            <Card className="bg-gradient-to-r from-purple-600/30 to-pink-600/30 backdrop-blur-lg border-purple-300/50 mb-8">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center">
+                  <Camera className="w-5 h-5 mr-2" />
+                  AI Video Form Analysis
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center mb-4">
+                  <p className="text-white mb-4">Upload workout videos for AI-powered form correction and technique tips</p>
+                  <Button 
+                    onClick={simulateVideoAnalysis}
+                    className="bg-purple-500 hover:bg-purple-600 text-white"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload Workout Video
+                  </Button>
+                </div>
+                
+                {videoAnalysis && (
+                  <div className="bg-slate-800/60 rounded-lg p-4 mt-4">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="text-white font-semibold">{videoAnalysis.exercise} Analysis</h4>
+                      <div className="text-2xl font-bold text-green-400">{videoAnalysis.formScore}/100</div>
+                    </div>
+                    
+                    <div className="space-y-2 mb-4">
+                      {videoAnalysis.issues.map((issue: any, idx: number) => (
+                        <div key={idx} className="flex items-start">
+                          {issue.type === 'warning' ? (
+                            <AlertTriangle className="w-4 h-4 mr-2 text-yellow-400 mt-0.5" />
+                          ) : (
+                            <CheckCircle className="w-4 h-4 mr-2 text-green-400 mt-0.5" />
+                          )}
+                          <p className="text-white text-sm">{issue.text}</p>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div>
+                      <h5 className="text-white font-medium mb-2">AI Recommendations:</h5>
+                      <ul className="space-y-1">
+                        {videoAnalysis.recommendations.map((rec: string, idx: number) => (
+                          <li key={idx} className="text-slate-300 text-sm">• {rec}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
             {/* AI Recommendations */}
-            <Card className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg border-purple-300/30">
+            <Card className="bg-gradient-to-r from-blue-600/30 to-green-600/30 backdrop-blur-lg border-blue-300/50">
               <CardHeader>
                 <CardTitle className="text-white flex items-center">
                   <Target className="w-5 h-5 mr-2" />
@@ -122,10 +199,10 @@ const ExerciseTracker = () => {
               <CardContent>
                 <div className="space-y-4">
                   {aiRecommendations.map((rec, idx) => (
-                    <div key={idx} className="bg-white/10 rounded-lg p-4 flex justify-between items-center">
+                    <div key={idx} className="bg-slate-800/60 rounded-lg p-4 flex justify-between items-center">
                       <div>
                         <h4 className="text-white font-semibold">{rec.exercise}</h4>
-                        <p className="text-blue-200 text-sm">{rec.reason}</p>
+                        <p className="text-slate-300 text-sm">{rec.reason}</p>
                       </div>
                       <div className="flex items-center space-x-2">
                         <Badge variant="secondary" className="bg-white/20 text-white">
