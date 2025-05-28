@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Activity, Camera, BarChart3, Calendar, Target, Flame, Clock, ChevronRight } from "lucide-react";
+import { Activity, Camera, BarChart3, Calendar, Target, Flame, Clock, ChevronRight, TrendingUp, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -16,6 +16,13 @@ const Index = () => {
     waterGoal: 8,
     steps: 8547,
     stepsGoal: 10000
+  });
+
+  const [averageStats] = useState({
+    caloriesBurned: 350,
+    workoutsCompleted: 0.7,
+    steps: 6200,
+    waterIntake: 4.2
   });
 
   return (
@@ -62,73 +69,73 @@ const Index = () => {
           <p className="text-blue-200">Let's crush your fitness goals today</p>
         </div>
 
-        {/* Compact Quick Actions */}
+        {/* Compact Quick Actions with Glass Morphism */}
         <div className="grid grid-cols-4 gap-2 md:gap-4 mb-6">
           <Link to="/exercises">
-            <Card className="bg-gradient-to-r from-green-500 to-emerald-600 border-0 hover:scale-105 transition-all duration-200 cursor-pointer">
-              <CardContent className="p-3 md:p-4 text-center">
-                <Activity className="w-5 h-5 md:w-6 md:h-6 text-white mx-auto mb-1" />
-                <p className="text-white font-medium text-xs md:text-sm">Workout</p>
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+              <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
+                <Activity className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <p className="text-white font-medium text-xs">Workout</p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/nutrition">
-            <Card className="bg-gradient-to-r from-orange-500 to-red-500 border-0 hover:scale-105 transition-all duration-200 cursor-pointer">
-              <CardContent className="p-3 md:p-4 text-center">
-                <Camera className="w-5 h-5 md:w-6 md:h-6 text-white mx-auto mb-1" />
-                <p className="text-white font-medium text-xs md:text-sm">Scan Food</p>
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+              <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
+                <Camera className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <p className="text-white font-medium text-xs">Scan Food</p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/analytics">
-            <Card className="bg-gradient-to-r from-purple-500 to-pink-500 border-0 hover:scale-105 transition-all duration-200 cursor-pointer">
-              <CardContent className="p-3 md:p-4 text-center">
-                <BarChart3 className="w-5 h-5 md:w-6 md:h-6 text-white mx-auto mb-1" />
-                <p className="text-white font-medium text-xs md:text-sm">Progress</p>
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+              <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
+                <BarChart3 className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <p className="text-white font-medium text-xs">Progress</p>
               </CardContent>
             </Card>
           </Link>
           
           <Link to="/calendar">
-            <Card className="bg-gradient-to-r from-blue-500 to-cyan-500 border-0 hover:scale-105 transition-all duration-200 cursor-pointer">
-              <CardContent className="p-3 md:p-4 text-center">
-                <Calendar className="w-5 h-5 md:w-6 md:h-6 text-white mx-auto mb-1" />
-                <p className="text-white font-medium text-xs md:text-sm">Calendar</p>
+            <Card className="bg-white/10 backdrop-blur-lg border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-200 cursor-pointer h-20">
+              <CardContent className="p-2 text-center flex flex-col items-center justify-center h-full">
+                <Calendar className="w-4 h-4 md:w-5 md:h-5 text-white mb-1" />
+                <p className="text-white font-medium text-xs">Calendar</p>
               </CardContent>
             </Card>
           </Link>
         </div>
 
-        {/* AI Recommendations - More Prominent */}
-        <Card className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg border-purple-300/30 mb-6">
+        {/* AI Recommendations - Improved Contrast */}
+        <Card className="bg-slate-800/40 backdrop-blur-lg border-slate-600/30 mb-6">
           <CardHeader className="pb-3">
             <CardTitle className="text-white flex items-center justify-between">
               <div className="flex items-center">
                 <Target className="w-5 h-5 mr-2" />
                 AI Recommendations
               </div>
-              <ChevronRight className="w-4 h-4 text-purple-300" />
+              <ChevronRight className="w-4 h-4 text-slate-300" />
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-700/50 rounded-lg p-3 border border-slate-600/30">
                 <h4 className="text-white font-semibold mb-1 text-sm">🎯 Today's Focus</h4>
-                <p className="text-blue-200 text-xs">
+                <p className="text-slate-200 text-xs">
                   Focus on upper body strength today. Your bench press improved 12% this month!
                 </p>
               </div>
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-700/50 rounded-lg p-3 border border-slate-600/30">
                 <h4 className="text-white font-semibold mb-1 text-sm">📊 Performance Insight</h4>
-                <p className="text-blue-200 text-xs">
+                <p className="text-slate-200 text-xs">
                   You're performing 18% above average for your age group (25-30). Excellent work!
                 </p>
               </div>
-              <div className="bg-white/10 rounded-lg p-3">
+              <div className="bg-slate-700/50 rounded-lg p-3 border border-slate-600/30">
                 <h4 className="text-white font-semibold mb-1 text-sm">🥗 Nutrition Tip</h4>
-                <p className="text-blue-200 text-xs">
+                <p className="text-slate-200 text-xs">
                   Add more complex carbs pre-workout for better performance.
                 </p>
               </div>
@@ -222,6 +229,71 @@ const Index = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Average Comparison Section */}
+        <Card className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-lg border-blue-300/30 mb-6">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-white text-sm flex items-center">
+              <Users className="w-4 h-4 mr-2" />
+              vs Average Person (Age 25-30, 70kg)
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-white text-xs font-medium">Calories</span>
+                  <TrendingUp className="w-3 h-3 text-green-400" />
+                </div>
+                <div className="text-white text-sm font-bold">
+                  You: {todayStats.caloriesBurned} | Avg: {averageStats.caloriesBurned}
+                </div>
+                <div className="text-green-300 text-xs">
+                  +{Math.round(((todayStats.caloriesBurned - averageStats.caloriesBurned) / averageStats.caloriesBurned) * 100)}% above avg
+                </div>
+              </div>
+
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-white text-xs font-medium">Workouts</span>
+                  <TrendingUp className="w-3 h-3 text-green-400" />
+                </div>
+                <div className="text-white text-sm font-bold">
+                  You: {todayStats.workoutsCompleted} | Avg: {averageStats.workoutsCompleted}
+                </div>
+                <div className="text-green-300 text-xs">
+                  +{Math.round(((todayStats.workoutsCompleted - averageStats.workoutsCompleted) / averageStats.workoutsCompleted) * 100)}% above avg
+                </div>
+              </div>
+
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-white text-xs font-medium">Steps</span>
+                  <TrendingUp className="w-3 h-3 text-green-400" />
+                </div>
+                <div className="text-white text-sm font-bold">
+                  You: {(todayStats.steps / 1000).toFixed(1)}k | Avg: {(averageStats.steps / 1000).toFixed(1)}k
+                </div>
+                <div className="text-green-300 text-xs">
+                  +{Math.round(((todayStats.steps - averageStats.steps) / averageStats.steps) * 100)}% above avg
+                </div>
+              </div>
+
+              <div className="bg-white/10 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-white text-xs font-medium">Water</span>
+                  <TrendingUp className="w-3 h-3 text-green-400" />
+                </div>
+                <div className="text-white text-sm font-bold">
+                  You: {todayStats.waterIntake} | Avg: {averageStats.waterIntake}
+                </div>
+                <div className="text-green-300 text-xs">
+                  +{Math.round(((todayStats.waterIntake - averageStats.waterIntake) / averageStats.waterIntake) * 100)}% above avg
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Recent Activity */}
         <Card className="bg-white/10 backdrop-blur-lg border-white/20">
